@@ -1,7 +1,7 @@
 from decouple import config
 from typing import Annotated,Optional
 
-from jwt.exceptions import InvalidTokenError
+from jwt import PyJWTError
 from app.modules.auth.models import TokenData
 from app.modules.auth.utility import verify_password
 
@@ -54,7 +54,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db:Ses
             raise credentials_exception
         token_data = TokenData(username=username)
         
-    except InvalidTokenError:
+    except PyJWTError:
         raise credentials_exception
     user = get_user_by_username(db, username = token_data.username)#type:ignore
     if user is None:
