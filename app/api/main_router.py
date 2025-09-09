@@ -10,6 +10,3 @@ api_router = APIRouter()
 # Example router import
 api_router.include_router(auth_router)
 api_router.include_router(user_router)
-
-
-
